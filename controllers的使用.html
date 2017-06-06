@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>angular的使用</title>
+</head>
+<body ng-app="app">
+    <div ng-controller="firstctrl">
+        <input type="text" ng-model="message">
+        <h1 ng-bind="message"></h1>
+        <div ng-controller="secondctrl">
+            <input type="text" ng-model="message">
+            <h1>{{message}}</h1>
+        </div>
+    </div>
+</body>
+<script src="angular.js"></script>
+<script>
+    angular.module('app',[])
+    .controller('firstctrl',function($scope){
+        $scope.message="hello angular1";
+    })
+    .controller('secondctrl',function($scope){
+        $scope.message="hello angular2"
+    })
+</script>
+</html>

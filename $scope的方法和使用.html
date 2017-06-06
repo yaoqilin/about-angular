@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>$scope的方法和使用</title>
+</head>
+<body ng-app="app">
+    <div ng-controller="MyCtrl">
+        <input type="text" ng-model="user.name">
+        <input type="text" ng-model="user.password">
+        <!--<h1>{{reverse()}}</h1>-->
+        <div class="button" ng-click="login()">登录</div>
+        <div ng-show="errormessage.length>0" class="aleert-box">{{errormessage}}</div>
+    </div>
+</body>
+<script src="angular.js"></script>
+<script src="myctrl.js"></script>
+</html>
