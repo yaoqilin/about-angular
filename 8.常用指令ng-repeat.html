@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ng-repeat</title>
+</head>
+<body ng-app="myApp" ng-controller="mycontroller">
+    <ul>
+        <!--ng-class="{'selected':$first}"选中第一个-->
+        <li ng-repeat="a in list" ng-if="!$last" ng-class="{'selected':$first}">
+            {{$index+1+'.'+a.address+$first+''+$last}}
+        </li>
+    </ul>
+</body>
+<script src="angular.js"></script>
+<script>
+    // ng-repeat的使用
+    // 特有属性（$index,$first,$last）的使用
+    const myApp = angular.module('myApp',[]);
+    myApp.controller('mycontroller',function($scope){
+        $scope.list=[
+            {id:1,address:'东湖公园'},
+            {id:2,address:'西湖公园'},
+            {id:3,address:'南湖公园'},
+            {id:4,address:'北湖公园'}
+        ]
+    })
+</script>
+</html>

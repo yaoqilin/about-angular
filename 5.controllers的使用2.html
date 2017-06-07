@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>services的应用</title>
+</head>
+<body ng-app="app">
+    <div ng-controller="fctrl">
+        <input type="text" ng-model="data.message">
+        <h2>{{data.message}}</h2>
+    </div>
+    <div ng-controller="sctrl">
+        <input type="text" ng-model="data.message">
+        <h2>{{data.message}}</h2>
+    </div>
+</body>
+<script src="angular.js"></script>
+<script>
+    angular.module('app',[])
+    .factory('Data',function () {
+        return {
+            message:'我来自factory',
+            shopcart:['1','2']
+        }
+    })
+        .controller('fctrl',function ($scope,Data){//下单
+            $scope.data = Data;
+        })
+        .controller('sctrl',function ($scope,Data) {//购物车
+            $scope.data = Data;
+        })
+</script>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>bindind,{{}}指令的使用</title>
+</head>
+<body ng-app="">
+    <div>
+        <input type="text" ng-model="name">
+        <h1 ng-clock class="ng-clock">{{name}}</h1>
+        <div ng-bind="'用户名：'+name"></div>
+        <div class='{{name}}'>{{name}}</div>
+    </div>
+</body>
+<script src="angular.js"></script>
+</html>

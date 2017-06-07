@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>$http请求</title>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="mycontroller">
+
+    </div>
+</body>
+<script src="angulr.js"></script>
+<script>
+    const myApp= angular.module('myApp',[]);
+    myApp.controller('mycontroller',function($scope,$http){
+        $http.post('http/127.0.0.1:80/user/adduser')
+    })
+</script>
+</html>
+<!--待续······-->
