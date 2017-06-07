@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>创建模式4种</title>
+</head>
+<body ng-app="app">
+    <div ng-controller="myCtrl">
+        <h1>{{message}}</h1>
+        <h1>{{realname}}</h1>
+        <h1>{{http}}</h1>
+        <h1>{{data.message}}</h1>
+        <h1>{{name}}</h1>
+    </div>
+</body>
+<script src="angular.js"></script>
+<script>
+    // 通常情况下，可以通过value()来注册服务对象或函数，
+    // 用constant()来配置数据。
+    // 1.value不可以在config里注入，但是constant可以
+    // 2.value可以修改，但是constant不可以修改，
+    // 一般直接用constant配置一些需要经常使用的数据。
+    angular.module('app',[])
+    .value('realname','zhangsan')
+    .value('realname','lisi')//值可以改变
+    .constant('http','http://www.baidu.com')
+    .constant('http','http://www.github/yaoqilin')
+    .factory('data',function(){
+        // return new aa()
+        return {
+            message:'how are you',
+            setmessage:function(){
+                this.message= 'I’m fine thinks'
+            }
+        }
+    })
+    .service('User',function(){
+        this.firstname = '司马';
+        this.lastname='光头';
+        this.getName=function(){
+            return this.firstname+this.lastname;
+        }
+    })
+    .controller('myCtrl',function($scope,realname,http,data,User){
+        $scope.message = '你好';
+        $scope.realname = realname;
+        $scope.http = http;
+        $scope.data=data;
+        data.setmessage();
+        $scope.name = User.getName()
+    })
+    // function aa(){
+    //     this.firstname = '司马';
+    //     this.lastname='光头';
+    //     this.getName=function(){
+    //         return this.firstname+this.lastname;
+    //     }
+    // } == service
+</script>
+</html>
