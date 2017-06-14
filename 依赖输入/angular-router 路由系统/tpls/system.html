@@ -1,0 +1,25 @@
+<!--菜单栏-->
+<div class="col-md-3">
+    <ul class="nav" style="border:1px solid #ddd;">
+        <li class="show nav-parent">
+            <a href style="border: 1px solid #ddd;border-left:none;border-right:none;">系统设置</a>
+            <ul class="nav">
+                <li ui-sref-active="active"><a href ui-sref="system.set" style="padding-left: 35px;">网站设置</a></li>
+                <li ui-sref-active="active"><a href ui-sref="system.info" style="padding-left: 35px;">网站信息</a></li>
+                <li ui-sref-active="active"><a href ui-sref="system.config" style="padding-left: 35px;">配置信息</a></li>
+            </ul>
+        </li>
+
+        <li class="show nav-parent">
+            <a href style="border: 1px solid #ddd;border-left:none;border-right:none;">导航管理</a>
+            <ul class="nav">
+                <li ui-sref-active="active"><a href ui-sref="system.menus" style="padding-left: 35px;">用户导航</a></li>
+                <li ui-sref-active="active"><a href ui-sref="system.topmenus" style="padding-left: 35px;">顶部导航</a></li>
+            </ul>
+        </li>
+
+    </ul>
+</div>
+<div class="col-md-9">
+    <div ui-view="main"></div>
+</div>

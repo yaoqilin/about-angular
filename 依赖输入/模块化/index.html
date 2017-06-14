@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myapp">
+    <div ng-controller="ctrl">
+        <input type="number" ng-model="a"/><br />
+        <input type="number" ng-model="b"/>
+        <p>{{ave(a,b)}}</p>
+    </div>
+</body>
+<script src="../angular.js"></script>
+<script src="abc.js"></script>
+</html>
+<script>
+    //angular.module注册一个模块 第一个参数为模块名
+    //第二个参数是本模块依赖的其他模块 当a模块依赖b模块时
+    //a模块就倒入了b模块中所有剖的服务 控制器 过滤器 指令等
+    angular.module('myapp',['abc'])
+            .controller('ctrl',function ($scope,ave) {
+                $scope.ave = ave;
+            })
+</script>

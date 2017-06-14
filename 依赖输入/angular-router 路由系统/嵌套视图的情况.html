@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="lib/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-router.js"></script>
+</head>
+<body>
+<!--首页的状态有三个，链接是状态的激活器，ui-router是模板文件的容器-->
+<a ui-sref="home">状态1</a>
+<a ui-sref="schools">状态2</a>
+<a ui-sref="classrooms">状态3</a>
+<div ui-view></div>
+
+</body>
+</html>
+<script>
+    (function(){
+        var app = angular.module('lzy',['ui.router']);
+        app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider,$urlRouterProvider){
+            $urlRouterProvider.when('','/home').when('/home','/home/tab1');
+            $stateProvider
+                    .state('home',{
+                        url:'/home',
+                        template:'home  <a ui-sref="home.tab1">切换状态1-1</a> <a ui-sref="home.tab2">切换状态1-2</a> <a ui-sref="home.tab3">切换状态1-3</a> <div ui-view></div>'
+                    })
+                    //子视图拥有不同的状态的情况下，在设置子视图的状态的时候，要以父视图.子视图的形式来扩展子视图的状态
+                    //相当于视图一层一层的嵌套，每次多一个层次，要指明它的父级，其余都是一样的。
+                    //如果有某个层级的视图有多个，则使用views来设置不同的模板文件
+                    .state('home.tab1',{
+                        url:'/tab1',
+                        template:'tab1'
+                    })
+                    .state('home.tab2',{
+                        url:'/tab2',
+                        template:'tab2'
+                    })
+                    .state('home.tab3',{
+                        url:'/tab3',
+                        template:'tab3'
+                    })
+                    //如果还有嵌套的，则home.tab3.视图名称,对应的是第三层的视图。
+                    .state('schools',{
+                        url:'/schools',
+                        template:'schools <div ui-view="main2"></div>'
+                    })
+                    .state('classrooms',{
+                        url:'/classrooms',
+                        template:'classrooms <div ui-view="main3"></div>'
+                    })
+
+        }]);
+        angular.bootstrap(document,['lzy']);
+    })();
+</script>

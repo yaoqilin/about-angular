@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="lib/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-router.js"></script>
+    <style>
+        .active{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <a ui-sref-active="active" ui-sref="home">状态1</a>
+    <a ui-sref-active="active" ui-sref="schools">状态2</a>
+    <a ui-sref-active="active" ui-sref="classrooms">状态3</a>
+    <div ui-view></div>
+    <div ui-view="main"></div>
+</body>
+</html>
+<script>
+    (function(){
+        var myApp = angular.module('lzy',['ui.router']);
+        app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider,$urlRouterProvider){
+            $stateProvider
+                    .state('home',{
+                        url: '/',
+                        template: 'home',
+                        controller: 'HomeController', //也可以写成HomeController as home
+                        controllerAs: 'home',
+                        views:{
+                            //第一个匿名视图的模板
+                            '':{
+                                template:'home状态下第一个视图下的HTML'
+                            },
+                            //第二个main视图的模板
+                            'main':{
+                                template:'home状态下第二个视图下的HTML'
+                            }
+                        }
+                    })
+                    .state('schools',{
+                        url: '/schools',
+                        controller: 'AllSchoolController',
+                        controllerAs: 'schools',
+                        template: 'schools',
+                        views:{
+                            '':{
+                                template:'schools状态下第一个视图的HTML'
+                            },
+                            'main':{
+                                template:'schools状态下第二个视图的HTML'
+                            }
+                        }
+                    })
+                    .state('classrooms',{
+                        url:'/classrooms',
+                        controller: 'AllClassroomsController',
+                        controllerAs: 'classrooms',
+                        template: 'classroom',
+                        views:{
+                            '':{
+                                template:'classrooms状态下的第一个视图的HTML'
+                            },
+                            'main':{
+                                template:'classrooms状态下的第二个视图的HTML'
+                            }
+                        }
+                    })
+
+        }]);
+        angular.bootstrap(document,['lzy']);
+    })();
+
+</script>

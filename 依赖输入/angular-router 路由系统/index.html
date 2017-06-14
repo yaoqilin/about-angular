@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>angular 的单页面实例应用demo</title>
+    <link rel="stylesheet" href="lib/bootstrap-3.0.0/css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
+    <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="lib/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-router.js"></script>
+    <script type="text/javascript" src="lib/bootstrap-3.0.0/js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/hello.js"></script>
+
+    <!--加载其余的angular模块或者插件-->
+
+</head>
+<body>
+<!--网站的顶部-->
+<div id="all">
+    <div class="header">
+        <nav class="navbar navbar-default navbar-inverse">
+            <div class="container">
+                <!--头部定义-->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"></a>
+                </div>
+                <!--内容开始-->
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <!--导航-->
+                    <ul class="nav navbar-nav">
+                        <li ui-sref-active="active"><a href ui-sref="index" class="logo">首页</a></li>
+                        <li ui-sref-active="active"><a href ui-sref="user" >用户</a></li>
+                        <li ui-sref-active="active"><a href ui-sref="system">系统</a></li>
+                    </ul>
+                    <!--右侧链接-->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> admin <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">修改昵称</a></li>
+                                <li><a href="#">修改密码</a></li>
+                                <li><a href="#">退出登录</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="admin container">
+        <div class="row">
+            <div ui-view></div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+<script>
+    /*自执行的函数*/
+    (function(){
+        /*使用angular的第一步就是创建一个模块，这个模块就是所有受到angular控制的区域 ,在HTML中用ng-app来指明模块的作用域 */
+        /*将angular的插件和指令都封装成模块，在这里引入*/
+        /*写好的插件，打开看看它对应的模块的名称是什么*/
+        /*需要引入的一定是公共的，多个页面都用的，如果只是这个页面使用的，直接app.controller就可以了，写到当前的模块下 */
+        var app = angular.module('lzy',['ui.router','lzyhello']);
+        app.run(function($rootScope, $state, $stateParams) {
+            $rootScope.$state = $state;
+            $rootScope.$stateParams = $stateParams;
+        });
+
+        /*config里面是对路由进行设置的，并且完成服务初始化的一些操作*/
+        /*<div ui-view></div> 首页只需要写一个这个就可以了，其余的交给路由来解决 */
+        /*每创建一个状态，就意味着<div ui-view></div>多了一个不同的显示HTML文件 */
+        app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider,$urlRouterProvider){
+            //默认是index登录状态
+            $urlRouterProvider.when('/user','/user/info').when('/system','/system/set').otherwise('index');
+            $stateProvider
+
+                    //后台的首页
+                    .state('index',{
+                        url:'/index',
+                        views: {
+                            '':{
+                                templateUrl:'tpls/index.html'
+                            }
+
+                        }
+                    })
+                    .state('user',{
+                        url:'/user',
+                        views:{
+                            '':{
+                                templateUrl:'tpls/user.html'
+                            }
+
+                        }
+                    })
+                    .state('user.info',{
+                        url:'/info',
+                        views:{
+                            '':{
+                                templateUrl:''
+                            },
+                            'main':{
+                                templateUrl:'tpls/user-info.html'
+                            },
+                            'info@user.info':{
+                                templateUrl:'tpls/list.html'
+                            }
+                        }
+                    })
+                    .state('user.info.add',{
+                        url:'/add',
+                        views:{
+                            '':{
+                                templateUrl:''
+                            },
+                            'info':{
+                                templateUrl:'tpls/add.html'
+                            }
+                        }
+                    })
+                    .state('user.info.edit',{
+                        url:'/edit',
+                        views:{
+                            '':{
+                                templateUrl:''
+                            },
+                            'info':{
+                                templateUrl:'tpls/edit.html'
+                            }
+                        }
+                    })
+                    .state('user.info.show',{
+                        url:'/show',
+                        views:{
+                            '':{
+                                templateUrl:''
+                            },
+                            'info':{
+                                templateUrl:'tpls/show.html'
+                            }
+                        }
+                    })
+                    .state('user.extend',{
+                        url:'/extend',
+                        views:{
+                            '':{
+                                templateUrl:''
+                            },
+                            'main':{
+                                templateUrl:'tpls/user-extend.html'
+                            }
+                        }
+                    })
+                    .state('user.group',{
+                        url:'/group',
+                        views:{
+                            '':{
+                                templateUrl:''
+                            },
+                            'main':{
+                                templateUrl:'tpls/user-group.html'
+                            }
+                        }
+                    })
+                    .state('user.menus',{
+                        url:'/menus',
+                        views:{
+                            '':{
+                                templateUrl:''
+                            },
+                            'main':{
+                                templateUrl:'tpls/user-menus.html'
+                            }
+                        }
+                    })
+
+                    .state('system',{
+                        url:'/system',
+                        views:{
+                            '':{
+                                templateUrl:'tpls/system.html'
+                            }
+                        }
+                    })
+                    .state('system.set',{
+                        url:'/set',
+                        views:{
+                            '':{
+                                templateUrl:'tpls/system.html'
+                            },
+                            'main':{
+                                templateUrl:'tpls/system-set.html'
+                            }
+                        }
+                    })
+                    .state('system.info',{
+                        url:'/info',
+                        views:{
+                            '':{
+                                templateUrl:'tpls/system.html'
+                            },
+                            'main':{
+                                templateUrl:'tpls/system-info.html'
+                            }
+                        }
+                    })
+                    .state('system.config',{
+                        url:'/config',
+                        views:{
+                            '':{
+                                templateUrl:'tpls/system.html'
+                            },
+                            'main':{
+                                templateUrl:'tpls/system-config.html'
+                            }
+                        }
+                    })
+                    .state('system.menus',{
+                        url:'/menus',
+                        views:{
+                            '':{
+                                templateUrl:'tpls/system.html'
+                            },
+                            'main':{
+                                templateUrl:'tpls/system-menus.html'
+                            }
+                        }
+                    })
+                    .state('system.topmenus',{
+                        url:'/topmenus',
+                        views:{
+                            '':{
+                                templateUrl:'tpls/system.html'
+                            },
+                            'main':{
+                                templateUrl:'tpls/system-topmenus.html'
+                            }
+                        }
+                    })
+
+
+
+
+            ;
+
+
+
+
+        }]);
+
+
+
+
+
+
+
+
+
+        /*使用angular的最后一步是启动该模块，并指明它的作用域 ，这里是在整个文档的作用域下 */
+        angular.bootstrap(document,['lzy']);
+
+    })();
+
+</script>

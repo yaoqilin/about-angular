@@ -1,0 +1,49 @@
+* {
+
+    box-sizing:border-box;
+}
+body {
+    font-size: 14px;
+    font-family: "Î¢ÈíÑÅºÚ", Helvetica, Tahoma, Arial, sans-serif;
+    box-sizing:border-box;
+}
+#reg {
+    width:500px;
+    height:300px;
+    padding:10px 20px;
+    border-radius:10px;
+    background:#4f8ad0;
+    position:fixed;
+    color: #fff;
+    top:50%;
+    left:50%;
+    margin:-150px 0 0 -250px;
+    z-index:100000;
+}
+#reg button {
+    margin-top:30px;
+    font-weight:bold;
+    color:#4f8ad0;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+.focus {
+    background-color: rgb(250, 255, 189);
+    background-image: none;
+    color: rgb(0, 0, 0);
+}
+.input-group .error {
+    display:none;
+    position:absolute;
+    right:10px;
+    top:6px;
+    color:red;
+    z-index:3;
+}
+
+.active {
+    background-color: #eeeeee;
+}
+
+

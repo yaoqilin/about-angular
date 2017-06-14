@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+            border: solid 5px red;
+            background-color: yellow;
+            transition:all 0.7s;
+        }
+        #box:hover{
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body ng-app="myapp">
+    <div ng-controller="ctrl">
+        <div id="box" my-transform>
+
+        </div>
+        <h1 my-transform=""></h1>
+    </div>
+
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('myapp',[])
+            .controller('ctrl',function ($scope) {
+
+            })
+            //.directive在模块中添加一个自定义属性
+            //第一个参数是指令名，在js中命名采用驼峰命名法
+            //在模版中使用时采用-分割法。第二个参数是指令工厂函数
+            //需要反回一个指令描述对象
+            .directive('myTransform',function () {
+                return {
+                    //设置指令模版，含有该指令的元素内容会被替换为此模版
+//                    template:'<p><b>123</b><i>abc</i></p>',
+                    //模版的url路径，
+                    templateUrl:"tem.html",
+                    //replace模版是否替换元素本身
+                    replace:true,
+                    //E只能当元素标签用 A只能当属性使用
+                    restrict:'EACM',
+                    //link 档指令所在的元素
+                    // 被angular识别时所执行的回调函数
+                    //第一个参数指令所在的作用域
+                    //第二个参数指令所在的元素的jqlite对象
+                    //第三个参数是指令所在的元素属性列表
+                    link:function (c,$e,a) {
+                        console.dir(arguments);
+                        $e.css('transition','all 0.7s')
+                        $e.on('mouseenter',function () {
+                            $e.css('transform','rotate(-180deg)');
+                            $e.css('border-radius','50% 50%');
+                        })
+                        $e.on('mouseleave',function () {
+                            $e.css('transform','rotate(0deg)');
+                            $e.css('border-radius','0 0');
+                        })
+                        $e.on('mousedown',function () {
+                            $e.css('box-shadow','0 0 20px 10px black');
+                        })
+                        $e.on('mouseup',function () {
+                            $e.css('box-shadow','none');
+                        })
+                   }
+                }
+            })
+</script>
+</html>

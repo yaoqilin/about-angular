@@ -1,0 +1,24 @@
+<!--菜单栏-->
+<div class="col-md-3">
+    <ul class="nav" style="border:1px solid #ddd;">
+        <li class="show nav-parent">
+            <a href style="border: 1px solid #ddd;border-left:none;border-right:none;">用户管理</a>
+            <ul class="nav">
+                <li ng-class="{active:$state.includes('user.info')}"><a href ui-sref="user.info" style="padding-left: 35px;">用户信息</a></li>
+                <li ng-class="{active:$state.includes('user.extend')}"><a href ui-sref="user.extend" style="padding-left: 35px;">扩展资料</a></li>
+            </ul>
+        </li>
+
+        <li class="show nav-parent">
+            <a href style="border: 1px solid #ddd;border-left:none;border-right:none;">权限管理</a>
+            <ul class="nav">
+                <li ng-class="{active:$state.includes('user.group')}"><a href ui-sref="user.group" style="padding-left: 35px;">用户组管理</a></li>
+                <li ng-class="{active:$state.includes('user.menus')}"><a href ui-sref="user.menus" style="padding-left: 35px;">后台菜单管理</a></li>
+            </ul>
+        </li>
+
+    </ul>
+</div>
+<div class="col-md-9">
+    <div ui-view="main">用户的设置</div>
+</div>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body ng-app="myapp">
+    <div ng-controller="ctrl">
+        <input ng-model="num" type="number"/>! =
+        <span>{{jc(num)}}</span>
+    </div>
+    <div ng-controller="c2">
+        <label for="">半径</label>
+        <input type="number" ng-model="r"/>
+        <span>面积：{{ymj(r)}}</span>
+        <span>周长：{{zc(r)}}</span>
+    </div>
+</body>
+<script src="angular.js"></script>
+<script>
+    angular.module('myapp',[])
+//            .controller('ctrl',function ($scope,jiecheng) {
+//                $scope.num = 0;
+//                $scope.jiecheng=function (n) {
+//                    var res = 1;
+//                    for(var i = 2;i<=n;i++){
+////                        res = res*i;
+//                        res*= i
+//                    }
+//                    return res;
+//                }
+//            })
+            //在模块中创建一个服务,第一个参数是服务名字，
+            //第二个参数是服务的具体内容，可以是一个值，
+            // 也可是一个函数
+            //.value
+            .value('jiecheng',function (n) {
+                var res = 1;
+                for(var i = 2;i<=n;i++){
+//                        res = res*i;
+                    res*= i
+                }
+                return res;
+            })
+
+            //contrioller的构造函数是可注入的函数，
+            // 可以再参数中注入其他服务
+            //把服务名作为函数的参数即可
+            .controller('ctrl',function ($scope,jiecheng) {
+                $scope.num = 0;
+                $scope.jc = jiecheng;
+            })
+            .value('pi',3.14)
+            //.factory 在模块中创建一个服务，第一个参数是服务名
+            //第二个参数式服务的工厂函数（可注入）
+            //工厂函数需要返回创建的服务
+            .factory('yuanmianji',function (pi) {
+                return function(r){
+                    return r*r*pi
+                }
+            })
+            .factory('zhouchang',function (pi) {
+                return function (r) {
+                    return 2*pi*r;
+                }
+            })
+            .controller('c2',function ($scope,yuanmianji) {
+//                $scope.pi = pi;
+                   $scope.ymj = yuanmianji;
+            })
+            .controller('c2',function ($scope, zhouchang) {
+                $scope.zc= zhouchang;
+            })
+    //.service 创建一个服务，第一个参数是服务名
+    //第二个参数是服务的构造函数
+
+    //.pro
+            .controller('c3',['$scope','pi',function (s,p) {
+                s.num = p;
+            }])
+</script>
+</html>

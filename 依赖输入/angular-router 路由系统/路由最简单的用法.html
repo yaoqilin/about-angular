@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>路由最简单的用法</title>
+    <script src="lib/angular.js"></script>
+    <script src="lib/angular-ui-router.js"></script>
+    <script src="lib/angular-animate.js"></script>
+    <style>
+        .active{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<!--状态切换-->
+<a ui-sref-active="active" ui-sref="home">首页</a>
+<a ui-sref-active="active" ui-sref="prodruct">产品中心</a>
+<a ui-sref-active="active" ui-sref="about">联系我们</a>
+<!--增加一个切换状态的视图-->
+<div ui-view=""></div>
+<div ui-view="main"></div>
+</body>
+</html>
+<script>
+    //在新建的这个模块中，使用ui.router加入到模块的依赖
+    //['ui.router','ngAnimate']引入的插件
+    var myApp = angular.module('myApp',['ui.router','ngAnimate']);
+    //在config里面设置路由，通过调用ui.router模块中的
+    //    '$stateProvider','$urlRouterProvider'两个服务
+    // 来完成对angularJS的单页面路由设置
+    myApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
+        //设置默认为首页状态/
+        $urlRouterProvider.when('','/');
+        $stateProvider
+        //新建home状态，它所对应的路径为'/',对应的内容是首页
+                .state('home',{
+                    url:'/',
+                    views:{
+                        //第一个匿名视图的模板
+                        '':{
+                            template:'home状态下第一个视图下的HTML'
+                        },
+                        //第二个main视图的模板
+                        'main':{
+                            template:'home状态下第二个视图下的HTML'
+                        }
+                    }
+                })
+                .state('prodruct',{
+                    url:'/prodruct',//状态在url中的显示
+                    template:'产品中心'//状态显示的内容
+                })
+                .state('about',{
+                    url:'/about',
+                    template:'联系我们'
+                })
+        }])
+</script>

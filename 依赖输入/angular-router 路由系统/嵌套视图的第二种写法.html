@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="lib/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-router.js"></script>
+</head>
+<body>
+<a ui-sref="home">状态1</a>
+<a ui-sref="schools">状态2</a>
+<a ui-sref="classrooms">状态3</a>
+<div ui-view></div>
+
+</body>
+</html>
+<script>
+    (function(){
+        var app = angular.module('lzy',['ui.router']);
+        app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider,$urlRouterProvider){
+            $urlRouterProvider.when('','/home');
+            $stateProvider
+                    .state('home',{
+                        url:'/home',
+                        /*
+                        *  它现在的HTML结构是这样的
+                        * <div ui-view>
+                        *       我是父视图
+                        *   <div ui-view="main">我是子视图</div>
+                        * </div>
+                        *
+                        * */
+                        //子视图不需要状态的时候，直接在views中添加子视图对应的模板文件
+
+                        views:{
+                            '':{
+                                template:'我是父视图 <div ui-view="main"></div>'
+                            },
+                            'main@home':{
+                                template:'我是子视图'
+                            }
+                        }
+                    })
+
+
+
+                    .state('schools',{
+                        url:'/schools',
+                        template:'schools <div ui-view="main2"></div>'
+                    })
+                    .state('classrooms',{
+                        url:'/classrooms',
+                        template:'classrooms <div ui-view="main3"></div>'
+                    })
+
+        }]);
+        angular.bootstrap(document,['lzy']);
+    })();
+</script>
